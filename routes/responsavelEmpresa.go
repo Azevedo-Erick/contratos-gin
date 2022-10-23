@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"test/src/internal/middlewares"
+	"test/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +14,7 @@ func SetupResponsavelEmpresaRoutes(r *gin.RouterGroup) {
 			"message": "Hello World!",
 		})
 	})
-	responsavelEmpresa.POST("/", middlewares.ValidateToken(), func(c *gin.Context) {
+	responsavelEmpresa.POST("/", middlewares.ValidateToken(), middlewares.Authorization([]int{1}), func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "Hello World!"})
 	})
 	responsavelEmpresa.PATCH("/", func(ctx *gin.Context) {})

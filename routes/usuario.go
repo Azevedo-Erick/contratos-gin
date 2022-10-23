@@ -4,8 +4,9 @@ import (
 	"errors"
 	"net/http"
 
-	"test/src/internal/database"
-	"test/src/internal/models"
+	"test/database"
+	"test/helpers"
+	"test/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -55,7 +56,12 @@ func saveUsuario(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
 		return
 	}
-
+	senha, err := helpers.HashPassword(usuario.Senha)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
+		return
+	}
+	usuario.Senha = senha
 	database.Database.Db.Create(&usuario)
 	c.JSON(200, usuario)
 }

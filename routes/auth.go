@@ -2,8 +2,10 @@ package routes
 
 import (
 	"net/http"
-	"test/src/internal/auth"
-	"test/src/internal/dtos"
+	"test/auth"
+	"test/dtos"
+	"test/helpers"
+	"test/repository"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -22,10 +24,17 @@ func loginHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, "Requisição inválida")
 	}
 
+	usuario, err := repository.GetUsuarioByEmail(loginObj.Email)
+
+	if err != nil || helpers.CheckPasswordHash(loginObj.Senha, usuario.Senha) {
+		c.JSON(http.StatusUnauthorized, "Email ou senha inválidos")
+		return
+	}
+
 	claims := &auth.JwtClaims{}
 
-	claims.Username = loginObj.Username
-	claims.Roles = []int{1, 2, 3}
+	claims.Username = usuario.Email
+	claims.Roles = []int{usuario.Cargo}
 	claims.Audience = c.Request.Header.Get("Referer")
 
 	var tokenCreationTime = time.Now().UTC()

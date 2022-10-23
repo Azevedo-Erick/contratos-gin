@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"test/src/internal/models"
+	"test/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
