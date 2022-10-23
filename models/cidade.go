@@ -2,12 +2,10 @@ package models
 
 import "time"
 
-type Usuario struct {
-	Id    int `gorm:"primaryKey autoIncrement column:id"`
-	Nome  string
-	Email string
-	Senha string
-	Cargo int
+type Cidade struct {
+	Id     int `gorm:"primaryKey"`
+	Nome   string
+	Estado Estado
 
 	CreatedAt time.Time `gorm:"column:created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at"`

@@ -1,18 +1,15 @@
 package models
 
-import (
-	"time"
+import "time"
 
-	"cloud.google.com/go/civil"
-)
-
-type Contrato struct {
+type Endereco struct {
 	Id          int `gorm:"primaryKey"`
-	Contratante Empresa
-	Contratado  Empresa
-	Valor       float64
-	DataInicio  civil.Date
-	DataFim     civil.Date
+	Cep         string
+	Cidade      Cidade
+	Bairro      string
+	Rua         string
+	Numero      string
+	Complemento string
 
 	CreatedAt time.Time `gorm:"column:created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at"`

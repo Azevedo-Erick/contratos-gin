@@ -29,7 +29,7 @@ func ConnectDB() {
 
 	log.Println("Conectado com sucesso")
 	db.Logger = logger.Default.LogMode(logger.Info)
-	db.AutoMigrate(&models.Usuario{})
+	db.AutoMigrate(&models.Usuario{}, &models.Cidade{}, &models.Estado{}, &models.Endereco{}, &models.Telefone{}, &models.Email{}, &models.ResponsavelEmpresa{}, &models.Empresa{}, &models.Contrato{})
 
 	Database = DbInstance{Db: db}
 
