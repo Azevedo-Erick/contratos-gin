@@ -6,6 +6,7 @@ type Endereco struct {
 	Id          int `gorm:"primaryKey"`
 	Cep         string
 	Cidade      Cidade
+	CidadeID    int `gorm:"foreignKey:Cidade"`
 	Bairro      string
 	Rua         string
 	Numero      string
