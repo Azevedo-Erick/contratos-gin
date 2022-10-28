@@ -1,19 +1,26 @@
 package dtos
 
 type CreateContrato struct {
-	Id          int           `json:"id"`
-	Contratante CreateEmpresa `json:"contratante"`
-	Contratado  CreateEmpresa `json:"Contratado"`
-	Valor       float64       `json:"valor" validate:"required"`
-	DataInicio  string        `json:"dataInicio" validate:"required"`
-	DataFim     string        `json:"dataFim" validate:"required"`
+	Contratante int     `json:"contratante"`
+	Contratado  int     `json:"Contratado"`
+	Valor       float64 `json:"valor" validate:"required"`
+	DataInicio  string  `json:"dataInicio" validate:"required"`
+	DataFim     string  `json:"dataFim" validate:"required"`
 }
 
 type UpdateContrato struct {
-	Id          int           `json:"id"`
-	Contratante CreateEmpresa `json:"contratante"`
-	Contratado  CreateEmpresa `json:"Contratado"`
-	Valor       float64       `json:"valor" validate:"required"`
-	DataInicio  string        `json:"dataInicio" validate:"required"`
-	DataFim     string        `json:"dataFim" validate:"required"`
+	Contratante int     `json:"contratante"`
+	Contratado  int     `json:"Contratado"`
+	Valor       float64 `json:"valor" validate:"required"`
+	DataInicio  string  `json:"dataInicio" validate:"required"`
+	DataFim     string  `json:"dataFim" validate:"required"`
+}
+
+type ResponseContrato struct {
+	Id          int             `json:"id"`
+	Contratante ResponseEmpresa `json:"contratante"`
+	Contratado  ResponseEmpresa `json:"Contratado"`
+	Valor       float64         `json:"valor" validate:"required"`
+	DataInicio  string          `json:"dataInicio" validate:"required"`
+	DataFim     string          `json:"dataFim" validate:"required"`
 }
