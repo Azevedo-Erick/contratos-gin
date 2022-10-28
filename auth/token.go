@@ -2,8 +2,10 @@ package auth
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -37,9 +39,12 @@ func GenerateToken(claims *JwtClaims, expirationTIme time.Time) (string, error) 
 	return tokenString, nil
 }
 
-func VerifyToken(tokenString, origin string) (bool, *JwtClaims) {
+func VerifyToken(tokenRawString, origin string) (bool, *JwtClaims) {
 	claims := &JwtClaims{}
+	tokenString := strings.TrimPrefix(tokenRawString, "Bearer ")
+	fmt.Println(tokenString)
 	token, _ := getTokenFromString(tokenString, claims)
+
 	if token.Valid {
 		if e := claims.Valid(); e == nil {
 			return true, claims
@@ -49,6 +54,7 @@ func VerifyToken(tokenString, origin string) (bool, *JwtClaims) {
 }
 
 func getTokenFromString(tokenString string, claims *JwtClaims) (*jwt.Token, error) {
+
 	return jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
