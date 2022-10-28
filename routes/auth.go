@@ -26,7 +26,8 @@ func loginHandler(c *gin.Context) {
 
 	usuario, err := repository.GetUsuarioByEmail(loginObj.Email)
 
-	if err != nil || helpers.CheckPasswordHash(loginObj.Senha, usuario.Senha) {
+	if err != nil || !helpers.CheckPasswordHash(loginObj.Senha, usuario.Senha) {
+
 		c.JSON(http.StatusUnauthorized, "Email ou senha inválidos")
 		return
 	}
